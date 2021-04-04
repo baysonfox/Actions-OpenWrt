@@ -60,7 +60,6 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        cd openwrt && git reset --hard 0ef46ab
 
     - name: Load custom feeds
       run: |
@@ -68,7 +67,8 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
+    - name: Force reset 
+      run: cd openwrt && git reset --hard 0ef46ab
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
